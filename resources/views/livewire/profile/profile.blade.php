@@ -23,7 +23,7 @@
             </div>
 
             <div class="w-full space-y-2">
-                <input type="file" wire:model="photo" id="profilePhotoInput" accept="image/*" class="hidden">
+                <input type="file" wire:model="photo" id="profilePhotoInput" accept="image/*" class="hidden" aria-label="Upload foto profil">
                 
                 <button type="button" onclick="document.getElementById('profilePhotoInput').click()" class="w-full py-2 px-4 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg shadow-sm transition flex items-center justify-center space-x-2">
                     <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -38,7 +38,7 @@
                 </div>
 
                 @if ($user->profile_photo_path)
-                    <button type="button" wire:click="confirmDeletePhoto" wire:loading.attr="disabled" class="w-full py-2 px-4 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold rounded-lg border border-rose-200 transition flex items-center justify-center space-x-2 disabled:opacity-75">
+                    <button type="button" wire:click="confirmDeletePhoto" wire:loading.attr="disabled" class="w-full py-2 px-4 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-semibold rounded-lg border border-rose-200 transition flex items-center justify-center space-x-2 disabled:opacity-75">
                         <svg wire:loading.remove wire:target="confirmDeletePhoto" class="w-4 h-4 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
@@ -51,7 +51,7 @@
                 @endif
             </div>
 
-            <p class="text-xs text-slate-400 mt-4">
+            <p class="text-xs text-slate-500 mt-4">
                 Mendukung PNG, JPG, GIF hingga 5MB. Foto otomatis dipotong menjadi rasio presisi 1:1.
             </p>
         </div>
@@ -64,21 +64,21 @@
 
                 <form wire:submit.prevent="updateProfileInformation" class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Nama Lengkap</label>
-                        <input wire:model="name" type="text" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <label for="profile-name" class="block text-sm font-medium text-slate-700 mb-1">Nama Lengkap</label>
+                        <input wire:model="name" id="profile-name" type="text" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                         @error('name') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Username</label>
-                            <input wire:model="username" type="text" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" required>
+                            <label for="profile-username" class="block text-sm font-medium text-slate-700 mb-1">Username</label>
+                            <input wire:model="username" id="profile-username" type="text" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" required>
                             @error('username') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Email</label>
-                            <input wire:model="email" type="email" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            <label for="profile-email" class="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                            <input wire:model="email" id="profile-email" type="email" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                             @error('email') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -102,21 +102,21 @@
 
                 <form wire:submit.prevent="updatePassword" class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Password Saat Ini</label>
-                        <input wire:model="current_password" type="password" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Password saat ini" required>
+                        <label for="profile-current-password" class="block text-sm font-medium text-slate-700 mb-1">Password Saat Ini</label>
+                        <input wire:model="current_password" id="profile-current-password" type="password" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Password saat ini" required>
                         @error('current_password') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Password Baru</label>
-                            <input wire:model="password" type="password" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Minimal 8 karakter" required>
+                            <label for="profile-new-password" class="block text-sm font-medium text-slate-700 mb-1">Password Baru</label>
+                            <input wire:model="password" id="profile-new-password" type="password" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Minimal 8 karakter" required>
                             @error('password') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Konfirmasi Password Baru</label>
-                            <input wire:model="password_confirmation" type="password" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ulangi password baru" required>
+                            <label for="profile-password-confirmation" class="block text-sm font-medium text-slate-700 mb-1">Konfirmasi Password Baru</label>
+                            <input wire:model="password_confirmation" id="profile-password-confirmation" type="password" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ulangi password baru" required>
                         </div>
                     </div>
 
@@ -169,11 +169,11 @@
              x-init="$nextTick(() => { initCropper(); })">
             <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden flex flex-col">
                 <div class="flex items-center justify-between px-6 py-4 bg-blue-600">
-                    <h3 class="text-base font-bold text-white flex items-center space-x-2">
+                    <h2 class="text-base font-bold text-white flex items-center space-x-2">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                         <span>Sesuaikan Potongan Foto (Rasio 1:1)</span>
-                    </h3>
-                    <button wire:click="closeCropModal" class="text-white/80 hover:text-white transition">
+                    </h2>
+                    <button wire:click="closeCropModal" class="text-white/80 hover:text-white transition" aria-label="Tutup">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                     </button>
                 </div>
@@ -216,8 +216,8 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-base font-bold text-white">Konfirmasi Hapus Foto Profil</h3>
-                        <p class="text-xs text-rose-100">Foto akan dihapus dan kembali ke avatar default</p>
+                        <h2 class="text-base font-bold text-white">Konfirmasi Hapus Foto Profil</h2>
+                        <p class="text-xs text-white">Foto akan dihapus dan kembali ke avatar default</p>
                     </div>
                 </div>
 

@@ -2,7 +2,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
             <div class="flex items-center space-x-2">
-                <a href="{{ route('admin.users') }}" class="p-1 rounded-lg text-slate-500 hover:bg-slate-200 transition">
+                <a href="{{ route('admin.users') }}" title="Kembali ke daftar pengguna" aria-label="Kembali ke daftar pengguna" class="p-1 rounded-lg text-slate-500 hover:bg-slate-200 transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
                 </a>
                 <h1 class="text-2xl font-bold text-slate-900">Stok Barang Pengguna: {{ $user->name }}</h1>
@@ -32,7 +32,7 @@
     <!-- Filters -->
     <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 mb-6 flex flex-col sm:flex-row gap-4 items-center justify-between">
         <div class="w-full sm:w-72 relative">
-            <input wire:model.live.debounce.300ms="search" type="text" placeholder="Cari nama, SKU, atau deskripsi..." class="w-full pl-3.5 pr-9 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <input wire:model.live.debounce.300ms="search" id="admin-stock-search" type="search" aria-label="Cari stok barang" placeholder="Cari nama, SKU, atau deskripsi..." class="w-full pl-3.5 pr-9 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <div wire:loading wire:target="search,statusFilter" class="absolute right-3 top-2.5">
                 <svg class="animate-spin h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -42,8 +42,8 @@
         </div>
 
         <div class="flex items-center space-x-3 w-full sm:w-auto">
-            <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Status:</label>
-            <select wire:model.live="statusFilter" class="px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+            <label for="admin-stock-status-filter" class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Status:</label>
+            <select wire:model.live="statusFilter" id="admin-stock-status-filter" class="px-3 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
                 <option value="">Semua Status</option>
                 @foreach ($statuses as $status)
                     <option value="{{ $status->value }}">{{ $status->label() }}</option>
@@ -71,7 +71,7 @@
                 <tbody class="divide-y divide-slate-100">
                     @forelse ($stocks as $index => $stock)
                         <tr class="hover:bg-slate-50/80 transition">
-                            <td class="py-4 px-6 text-slate-400 text-xs">
+                            <td class="py-4 px-6 text-slate-500 text-xs">
                                 {{ $stocks->firstItem() + $index }}
                             </td>
                             <td class="py-4 px-6">

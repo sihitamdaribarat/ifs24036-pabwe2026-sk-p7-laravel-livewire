@@ -24,7 +24,7 @@ Akun seeder: `admin` / `admin` dan `member` / `member` (+ contoh stok untuk memb
 | Method | URI | Keterangan |
 | --- | --- | --- |
 | GET | `/` | Guest → login; admin → `/admin/users`; member → `/stocks` |
-| GET | `/auth/login`, `/auth/register` | Guest (alias `/login`, `/register` redirect ke sini) |
+| GET | `/login`, `/register` | Guest (alias `/auth/login`, `/auth/register` juga langsung 200) |
 | POST | `/logout` | Auth |
 | GET | `/stocks` | Daftar stok member (`owns.stock`) |
 | GET | `/stocks/{stock}` | Detail stok (`owns.stock`) |

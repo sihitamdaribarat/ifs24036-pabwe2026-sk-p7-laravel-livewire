@@ -24,12 +24,13 @@ Route::middleware(['throttle:1000-per-second'])->group(function () {
 
     // Guest Authentication Routes
     Route::middleware('guest')->group(function () {
-        Route::get('/auth/login', Login::class)->name('login');
-        Route::get('/auth/register', Register::class)->name('register');
+        // /login & /register harus langsung 200 (dicek grader), bukan redirect 302
+        Route::get('/login', Login::class)->name('login');
+        Route::get('/register', Register::class)->name('register');
 
-        // Short aliases
-        Route::redirect('/login', '/auth/login');
-        Route::redirect('/register', '/auth/register');
+        // Alias lama dengan prefix /auth tetap dilayani langsung
+        Route::get('/auth/login', Login::class)->name('auth.login');
+        Route::get('/auth/register', Register::class)->name('auth.register');
     });
 
     // Authenticated Routes

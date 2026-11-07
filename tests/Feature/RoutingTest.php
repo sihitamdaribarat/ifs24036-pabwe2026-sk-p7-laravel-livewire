@@ -15,13 +15,24 @@ class RoutingTest extends TestCase
         $this->get('/')
             ->assertRedirect(route('login'));
 
-        $this->assertSame(url('/auth/login'), route('login'));
+        $this->assertSame(url('/login'), route('login'));
+        $this->assertSame(url('/register'), route('register'));
     }
 
-    public function test_short_auth_aliases_redirect_to_auth_prefix(): void
+    public function test_login_and_register_pages_respond_directly_without_redirect(): void
     {
-        $this->get('/login')->assertRedirect('/auth/login');
-        $this->get('/register')->assertRedirect('/auth/register');
+        $this->get('/login')
+            ->assertStatus(200)
+            ->assertSee('id="login-email-input"', false);
+        $this->get('/register')->assertStatus(200);
+    }
+
+    public function test_auth_prefixed_aliases_still_render(): void
+    {
+        $this->get('/auth/login')
+            ->assertStatus(200)
+            ->assertSee('id="login-email-input"', false);
+        $this->get('/auth/register')->assertStatus(200);
     }
 
     public function test_root_redirects_member_to_stocks(): void

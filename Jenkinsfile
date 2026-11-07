@@ -352,6 +352,12 @@ pipeline {
 
                     rm -f latest-app.zip
 
+                    # Bersihkan isi runtime storage/cache, tapi folder + .gitignore tetap ikut zip
+                    # (Laravel butuh storage/framework/views dkk. sudah ada di server)
+                    find storage/logs storage/framework/cache/data storage/framework/sessions \
+                        storage/framework/views storage/framework/testing bootstrap/cache \
+                        -type f ! -name .gitignore -delete 2>/dev/null || true
+
                     # vendor & node_modules sengaja tidak ikut zip
                     # (diinstal ulang di server deploy via composer/npm)
                     # .env.example tetap ikut; .env lokal tidak
@@ -371,17 +377,21 @@ pipeline {
                         -x "latest-app.zip" \
                         -x "trivy-results.sarif" \
                         -x ".docs/*" \
-                        -x "tests/*" \
-                        -x "storage/logs/*" \
-                        -x "storage/framework/cache/data/*" \
-                        -x "storage/framework/sessions/*" \
-                        -x "storage/framework/views/*" \
-                        -x "storage/framework/testing/*" \
-                        -x "bootstrap/cache/*.php"
+                        -x "tests/*"
 
                     echo "=== Application Package Created ==="
 
                     ls -lh latest-app.zip
+
+                    echo "=== Verify Laravel essentials included ==="
+                    for f in artisan composer.json composer.lock bootstrap/app.php public/index.php \
+                             public/build/manifest.json storage/framework/views/.gitignore; do
+                        if ! unzip -Z1 latest-app.zip | grep -qx "$f"; then
+                            echo "ERROR: $f tidak ada di zip"
+                            exit 1
+                        fi
+                    done
+                    echo "OK: artisan, public/build, storage/framework ada di zip"
 
                     echo "=== Verify vendor/node_modules excluded ==="
                     if unzip -Z1 latest-app.zip | grep -E '^(vendor|node_modules)(/|$)' >/dev/null; then

@@ -36,9 +36,9 @@ Akun seeder: `admin` / `admin` dan `member` / `member` (+ contoh stok untuk memb
 
 | Elemen | id |
 | --- | --- |
-| Input username/email | `login-email-input` |
-| Input password | `login-password-input` |
-| Tombol submit (Masuk) | `login-submit-button` |
+| Input username/email | `login-username` |
+| Input password | `login-password` |
+| Tombol submit (Masuk) | `login-submit` |
 
 ## Status stok
 

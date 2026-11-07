@@ -23,7 +23,7 @@ class RoutingTest extends TestCase
     {
         $this->get('/login')
             ->assertStatus(200)
-            ->assertSee('id="login-email-input"', false);
+            ->assertSee('id="login-username"', false);
         $this->get('/register')->assertStatus(200);
     }
 
@@ -31,7 +31,7 @@ class RoutingTest extends TestCase
     {
         $this->get('/auth/login')
             ->assertStatus(200)
-            ->assertSee('id="login-email-input"', false);
+            ->assertSee('id="login-username"', false);
         $this->get('/auth/register')->assertStatus(200);
     }
 

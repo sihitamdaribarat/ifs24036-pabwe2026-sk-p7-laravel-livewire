@@ -25,9 +25,9 @@ class LoginTest extends TestCase
     {
         $this->get('/auth/login')
             ->assertStatus(200)
-            ->assertSee('id="login-email-input"', false)
-            ->assertSee('id="login-password-input"', false)
-            ->assertSee('id="login-submit-button"', false);
+            ->assertSee('id="login-username"', false)
+            ->assertSee('id="login-password"', false)
+            ->assertSee('id="login-submit"', false);
     }
 
     public function test_login_validation(): void
